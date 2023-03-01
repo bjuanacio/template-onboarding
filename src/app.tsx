@@ -1,57 +1,21 @@
-import { useState } from "react";
-import { Button } from "./components/atoms/button/button";
-import { Input } from "./components/atoms/input/input";
-import { Typography } from "./components/atoms/typography/typography";
-import "./app.scss";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LoginForm from "./components/organisms/login-form/login-form";
+import RegisterForm from "./components/organisms/register-form/register-form";
+import HomePage from "./components/pages/home-page/home-page";
 
-function App() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleClick = () => {
-    alert("Data: " + username + " - " + password);
-  };
-
+const App = () => {
   return (
-    <div className="app">
-      <div className="app__container">
-        <div className="app__gradient"></div>
-        <Typography variant="hero" color="blue">
-          Welcome to React Template Onboarding
-        </Typography>
-        <Input
-          size="medium"
-          state="normal"
-          value={username}
-          onChange={setUsername}
-          placeholder="Nombre de usuario"
-          fullWidth={true}
-          controlEvent={true}
-          tabIndexElement={1}
-        ></Input>
-        <Input
-          size="medium"
-          state="normal"
-          value={password}
-          onChange={setPassword}
-          placeholder="Password"
-          type="password"
-          fullWidth={true}
-          controlEvent={true}
-          tabIndexElement={2}
-        ></Input>
-        <br></br>
-        <Button
-          tabIndexInner={3}
-          size="medium"
-          color="primary"
-          onClick={handleClick}
-        >
-          Enviar
-        </Button>
-      </div>
-    </div>
-  );
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/register" element={<RegisterForm />} />
+          <Route path="/signin" element={<LoginForm />} />
+          <Route path="*" element={<p>Not found</p>} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  )
 }
 
-export default App;
+export default App
