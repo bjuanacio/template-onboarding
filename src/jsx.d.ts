@@ -75,6 +75,21 @@ interface PichinchaButtonHTMLAttributes {
   children?: React.ReactNode;
 }
 
+interface PichinchaLinkHTMLAttributes {
+  align?: 'inherit' | 'left' | 'center' | 'right' | 'justify'
+  color?: "error" | "info" | "success" | "blue" | "warning" | "white" | "black" | "yellow" | "danger100" | "blue100" | "blue200" | "grey" | "darkGrey" | "danger" | "strongBlue" | "grayishRed" | "moderateCyan" | "yellowGold" | "darkCyan" | "pureOrange" | "darkGrayishBlue" | "darkGrey400" | "blue500"	
+  disabled?: boolean
+  display?: string
+  href?: string
+  idelement?: string
+  inline_styles?: object
+  target?: string
+  variant?: VariantText
+  weight?: 'normal' | 'bold'
+  onClick?(): void
+  children?: React.ReactNode;
+}
+
 interface HTMLPichinchaButtonElement extends PichinchaButtonHTMLAttributes {
   addEventListener(event: string, callback: CallableFunction): void
   removeEventListener(event: string, callback: CallableFunction): void
@@ -126,11 +141,13 @@ type DesignSystemElementAttributes =
   | PichinchaButtonHTMLAttributes
   | PichinchaInputHTMLAttributes
   | PichinchaTypographyHTMLAttributes
+  | PichinchaLinkHTMLAttributes
 
 declare namespace JSX {
   interface IntrinsicElements {
     'pichincha-button': PichinchaButtonHTMLAttributes
     'pichincha-input': PichinchaInputHTMLAttributes
     'pichincha-typography': PichinchaTypographyHTMLAttributes
+    'pichincha-link': PichinchaLinkHTMLAttributes
   }
 }

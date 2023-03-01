@@ -3,6 +3,8 @@ import { Button } from "./components/atoms/button/button";
 import { Input } from "./components/atoms/input/input";
 import { Typography } from "./components/atoms/typography/typography";
 import "./app.scss";
+import Login from "./components/molecules/login/Login";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [username, setUsername] = useState("");
@@ -15,8 +17,8 @@ function App() {
   return (
     <div className="app">
       <div className="app__container">
-        <div className="app__gradient"></div>
-        <Typography variant="hero" color="blue">
+        {/* <div className="app__gradient"></div> */}
+        {/* <Typography variant="hero" color="blue">
           Welcome to React Template Onboarding
         </Typography>
         <Input
@@ -48,7 +50,8 @@ function App() {
           onClick={handleClick}
         >
           Enviar
-        </Button>
+        </Button> */}
+        <Login></Login>
       </div>
     </div>
   );
