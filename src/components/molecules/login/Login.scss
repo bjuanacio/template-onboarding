@@ -1,3 +1,13 @@
 .login {
-    background-color: red;
+
+    &__actionRow {
+        background-color: #ececec;
+        padding: 16px 0;
+        align-items: center;
+        margin-top: 24px;
+    }
+}
+
+.row {
+    padding: 16px;
 }
