@@ -14,3 +14,15 @@ export default function fromReactToWebComponentProps(cProps: DesignSystemElement
     return acc
   }, {})
 }
+
+export const validateRegex = (regExp: RegExp, stringVal: string, fieldName: string): ["normal" | "error", string] => {
+  if (stringVal === '') {
+    return ["error", `${fieldName} es requerido`]
+  }
+  else if (!regExp.test(stringVal)) {
+    return ["error", `${fieldName} no valido`]
+  }
+  else {
+    return ["normal", ""]
+  }
+}
