@@ -1,12 +1,12 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { Link } from './link'
 
-describe('Button', () => {
+describe('Link', () => {
   it('should display inner text', async () => {
     render(<Link href='#'>Hazme click</Link>)
-    const buttonFound = await screen.findByText('Hazme click')
-    expect(buttonFound).toBeDefined()
-    expect(buttonFound).toHaveTextContent('Hazme click')
+    const linkFound = await screen.findByText('Hazme click')
+    expect(linkFound).toBeDefined()
+    expect(linkFound).toHaveTextContent('Hazme click')
   })
 
   it('should trigger the click', async () => {

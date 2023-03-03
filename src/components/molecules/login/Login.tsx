@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 import { Link } from "../../atoms/link/link";
 import { Card } from "../../atoms/card/card";
 import './Login.scss'
-import { validateRegex, asyncFetch } from "../../../utils/ds-utils";
+import {  asyncFetch, validateEmail, validatePassword } from "../../../utils/ds-utils";
 
 const Login = () => {
 
@@ -46,15 +46,13 @@ const Login = () => {
     const [password, setPassword] = useState("Marco9021");
 
     useEffect(() => {
-        const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-        const [isValid, errorMsg] = validateRegex(regex, username, "Correo")
+        const [isValid, errorMsg] = validateEmail(username)
         setValidUsername(isValid);
         setUserNameErrorMsg(errorMsg)
     }, [username]);
 
     useEffect(() => {
-        const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/g;
-        const [isValid, errorMsg] = validateRegex(regex, password, "Contraseña")
+        const [isValid, errorMsg] = validatePassword(password)
         setValidPass(isValid);
         setPassErrorMsg(errorMsg)
     }, [password]);
@@ -106,6 +104,7 @@ const Login = () => {
                         size="medium"
                         color="primary"
                         onClick={handleClick}
+                        idelement="btnRegister"
                     >
                         Iniciar Sesion
                     </Button>

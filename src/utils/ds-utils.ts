@@ -35,7 +35,17 @@ export default function fromReactToWebComponentProps(cProps: DesignSystemElement
   }, {})
 }
 
-export const validateRegex = (regExp: RegExp, stringVal: string, fieldName: string): ["normal" | "error", string] => {
+export const validateEmail = (username: string) => {
+  const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+  return validateRegex(regex, username, "Correo");
+}
+
+export const validatePassword = (password: string) => {
+  const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/g;
+  return validateRegex(regex, password, "Contraseña")
+}
+
+const validateRegex = (regExp: RegExp, stringVal: string, fieldName: string): ["normal" | "error", string] => {
   if (stringVal === '') {
     return ["error", `${fieldName} es requerido`]
   }

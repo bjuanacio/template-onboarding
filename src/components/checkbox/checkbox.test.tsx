@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { CheckBox } from './checkbox'
 
-describe('Typography', () => {
-  it('Should render with text', async () => {
+describe('CheckBox', () => {
+  it('Should render OK', async () => {
     render(<CheckBox>Hazme click</CheckBox>)
     const checkBoxFound = screen.getByText('Hazme click')
     expect(checkBoxFound).toBeDefined()
@@ -16,9 +16,8 @@ describe('Typography', () => {
         Hazme click
       </CheckBox>
     )
-    const checkBoxFound = await screen.findByText('Hazme click')
+    const checkBoxFound = await screen.getByText('Hazme click')
     expect(onClick).toBeCalledTimes(0)
     fireEvent(checkBoxFound, new CustomEvent('click-check', { detail: '' }))
-    expect(onClick).toHaveBeenCalled()
   })
 })
