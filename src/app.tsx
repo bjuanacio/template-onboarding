@@ -1,7 +1,3 @@
-import { useState } from "react";
-import { Button } from "./components/atoms/button/button";
-import { Input } from "./components/atoms/input/input";
-import { Typography } from "./components/atoms/typography/typography";
 import "./app.scss";
 import Login from "./components/molecules/login/Login";
 import 'bootstrap/dist/css/bootstrap.min.css';

@@ -1,4 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+const baseUrl = 'http://localhost:3001/';
+
+export const asyncFetch = async (requestOptions: RequestInit, url = '') => {
+  let statusCode = 0;
+
+  const response = await fetch(baseUrl + url, requestOptions);
+
+  statusCode = response.status;
+  let responseJson;
+  if (requestOptions.method === "DELETE") {
+    responseJson = '';
+  }
+  else {
+    responseJson = await response?.json();
+  }
+
+  return { responseJson, statusCode };
+}
+
+
 export const camelToDashCase = (str: string) =>
   str.replace(/([A-Z])/g, (m: string) => `-${m[0].toLowerCase()}`)
 
