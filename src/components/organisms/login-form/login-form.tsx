@@ -2,28 +2,28 @@ import { useState } from "react";
 import { Button } from "../../atoms/button/button";
 import { Input } from "../../atoms/input/input";
 import { Typography } from "../../atoms/typography/typography";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "./login-form.scss";
 import { validateEmail } from "../../../utils/ds-utils";
 
-const LoginForm= () => {
+const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
   const handleClick = () => {
-    // e.preventDefault();
-    setPasswordError("")
+    if (email?.length === 0) setEmailError("Correo es requerido");
+    if (password?.length === 0) setPasswordError("Contraseña requerida");
   };
 
   const handleEmailValue = (value: string) => {
     setEmail(value);
 
     if (!validateEmail(value)) {
-      setEmailError('Por favor, ingrese un correo válido');
+      setEmailError("Por favor, ingrese un correo válido");
     } else {
-      setEmailError('');
+      setEmailError("");
     }
   };
 
@@ -42,7 +42,7 @@ const LoginForm= () => {
             </Typography>
             <Input
               size="medium"
-              state={emailError? "error": "normal"}
+              state={emailError ? "error" : "normal"}
               value={email}
               onChange={handleEmailValue}
               placeholder="Ej. name@example.com"
@@ -50,6 +50,7 @@ const LoginForm= () => {
               controlEvent={true}
               tabIndexElement={1}
             ></Input>
+            {emailError && <span>{emailError}</span>}
             <Typography variant="captionText" color="black">
               Contraseña
             </Typography>
@@ -64,9 +65,10 @@ const LoginForm= () => {
               controlEvent={true}
               tabIndexElement={2}
             ></Input>
+            {passwordError && <span>{passwordError}</span>}
           </div>
           <div className="login__actions">
-            <Link to='/register'>Regístrate aquí</Link>
+            <Link to="/register">Regístrate aquí</Link>
             <Button
               tabIndexInner={4}
               size="medium"
@@ -75,7 +77,7 @@ const LoginForm= () => {
             >
               Iniciar Sesión
             </Button>
-            </div>
+          </div>
         </form>
       </div>
     </div>
