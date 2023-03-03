@@ -4,20 +4,33 @@ import { Input } from "../../atoms/input/input";
 import { Typography } from "../../atoms/typography/typography";
 import { Link } from 'react-router-dom';
 import "./login-form.scss";
+import { validateEmail } from "../../../utils/ds-utils";
 
-const LoginForm = () => {
+const LoginForm= () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
-  const handleSubmit = () => {
-    // event.preventDefault();
-    console.log("handleClick");
+  const handleClick = () => {
+    // e.preventDefault();
+    setPasswordError("")
+  };
+
+  const handleEmailValue = (value: string) => {
+    setEmail(value);
+
+    if (!validateEmail(value)) {
+      setEmailError('Por favor, ingrese un correo válido');
+    } else {
+      setEmailError('');
+    }
   };
 
   return (
     <div className="login">
       <div className="login__container">
-        <form onSubmit={handleSubmit} aria-label="Login form">
+        <form aria-label="Login Form">
           <div className="login__title">
             <Typography variant="h2" weight="bold" color="black">
               Iniciar sesión
@@ -29,9 +42,9 @@ const LoginForm = () => {
             </Typography>
             <Input
               size="medium"
-              state="normal"
+              state={emailError? "error": "normal"}
               value={email}
-              onChange={setEmail}
+              onChange={handleEmailValue}
               placeholder="Ej. name@example.com"
               fullWidth={true}
               controlEvent={true}
@@ -52,18 +65,17 @@ const LoginForm = () => {
               tabIndexElement={2}
             ></Input>
           </div>
-
           <div className="login__actions">
             <Link to='/register'>Regístrate aquí</Link>
             <Button
               tabIndexInner={4}
               size="medium"
               color="primary"
-              type="submit"
+              onClick={handleClick}
             >
               Iniciar Sesión
             </Button>
-          </div>
+            </div>
         </form>
       </div>
     </div>

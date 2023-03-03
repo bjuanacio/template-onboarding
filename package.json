@@ -51,5 +51,8 @@
       "!src/index.tsx",
       "!src/reportWebVitals.ts"
     ]
+  },
+  "devDependencies": {
+    "jest-watch-typeahead": "^0.6.5"
   }
 }
