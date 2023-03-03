@@ -122,15 +122,35 @@ interface HTMLPichinchaInputElement extends PichinchaInputHTMLAttributes {
   removeEventListener(event: string, callback: CallableFunction): void
 }
 
+interface PichinchaCheckboxHTMLAttributes {
+  checked?: boolean
+  disabled?: boolean
+  error?: boolean
+  idElement?: string
+  nameElement?: string
+  offLabelClick?: boolean
+  typeCheck?: string
+  value?: string
+  onChange?(value: string): void
+  children?: React.ReactNode;
+}
+
+interface HTMLPichinchaCheckboxElement extends PichinchaCheckboxHTMLAttributes {
+  addEventListener(event: string, callback: CallableFunction): void
+  removeEventListener(event: string, callback: CallableFunction): void
+}
+
 type DesignSystemElementAttributes =
   | PichinchaButtonHTMLAttributes
   | PichinchaInputHTMLAttributes
   | PichinchaTypographyHTMLAttributes
+  | PichinchaCheckboxHTMLAttributes
 
 declare namespace JSX {
   interface IntrinsicElements {
     'pichincha-button': PichinchaButtonHTMLAttributes
     'pichincha-input': PichinchaInputHTMLAttributes
     'pichincha-typography': PichinchaTypographyHTMLAttributes
+    'pichincha-check-box': PichinchaCheckboxHTMLAttributes
   }
 }

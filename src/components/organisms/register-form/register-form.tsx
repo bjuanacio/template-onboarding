@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "../../atoms/button/button";
 import { Input } from "../../atoms/input/input";
 import { Typography } from "../../atoms/typography/typography";
+import { Checkbox } from "../../atoms/checkbox/checkbox";
 import { Link } from "react-router-dom";
 import { validateEmail } from "../../../utils/ds-utils";
 import "./register-form.scss";
@@ -97,6 +98,14 @@ const RegisterForm = () => {
               tabIndexElement={3}
             ></Input>
             {passwordError && <span>{passwordError}</span>}
+            <Typography variant="h3" weight="bold" color="black">
+              Categorías
+            </Typography>
+            <Checkbox>Anime</Checkbox>
+            <Checkbox>Ciencia Ficción</Checkbox>
+            <Checkbox>Novelas</Checkbox>
+            <Checkbox>Drama</Checkbox>
+            <Checkbox>Inteligencia Artificial</Checkbox>
           </div>
           <div className="register__actions">
             <Link to="/signin">Iniciar Sesión</Link>
