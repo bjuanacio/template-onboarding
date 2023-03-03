@@ -1,4 +1,4 @@
-import fromReactToWebComponentProps from './ds-utils'
+import fromReactToWebComponentProps, { validateEmail } from './ds-utils';
 
 describe('fromReactToWebComponentProps', () => {
   it('should convert to web component props', () => {
@@ -9,9 +9,19 @@ describe('fromReactToWebComponentProps', () => {
 
   it('should not convert to web component props if the value is a fuction', () => {
     const props = fromReactToWebComponentProps({
-      onChange: () => {}
+      onChange: () => { }
     })
 
     expect(props).toEqual({})
+  })
+})
+
+describe('validateEmail', () => {
+  it('should validate an email value', () => {
+    const validEmail = 'test@email.com';
+    const invalidEmail = 'test.email.com';
+
+    expect(validateEmail(validEmail)).toBe(true);
+    expect(validateEmail(invalidEmail)).toBe(false);
   })
 })
