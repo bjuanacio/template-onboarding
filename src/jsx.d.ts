@@ -52,6 +52,19 @@ interface PichinchaTypographyHTMLAttributes {
   children?: React.ReactNode;
 }
 
+interface PichinchaCheckBoxHTMLAttributes {
+  checked?: boolean
+  children?: React.ReactNode
+  disabled?: boolean
+  errorHelper?: string
+  idelement?: string
+  nameElement?: string
+  offLabelClick?: boolean
+  typeCheck?: string
+  value?: string
+  onClickCheck?(): void
+}
+
 interface HTMLPichinchaTypographyElement extends PichinchaTypographyHTMLAttributes {
   addEventListener(event: string, callback: CallableFunction): void
   removeEventListener(event: string, callback: CallableFunction): void
@@ -77,7 +90,7 @@ interface PichinchaButtonHTMLAttributes {
 
 interface PichinchaLinkHTMLAttributes {
   align?: 'inherit' | 'left' | 'center' | 'right' | 'justify'
-  color?: "error" | "info" | "success" | "blue" | "warning" | "white" | "black" | "yellow" | "danger100" | "blue100" | "blue200" | "grey" | "darkGrey" | "danger" | "strongBlue" | "grayishRed" | "moderateCyan" | "yellowGold" | "darkCyan" | "pureOrange" | "darkGrayishBlue" | "darkGrey400" | "blue500"	
+  color?: "error" | "info" | "success" | "blue" | "warning" | "white" | "black" | "yellow" | "danger100" | "blue100" | "blue200" | "grey" | "darkGrey" | "danger" | "strongBlue" | "grayishRed" | "moderateCyan" | "yellowGold" | "darkCyan" | "pureOrange" | "darkGrayishBlue" | "darkGrey400" | "blue500"
   disabled?: boolean
   display?: string
   href?: string
@@ -91,6 +104,11 @@ interface PichinchaLinkHTMLAttributes {
 }
 
 interface HTMLPichinchaButtonElement extends PichinchaButtonHTMLAttributes {
+  addEventListener(event: string, callback: CallableFunction): void
+  removeEventListener(event: string, callback: CallableFunction): void
+}
+
+interface HTMLPichinchaCheckBoxElement extends PichinchaCheckBoxHTMLAttributes {
   addEventListener(event: string, callback: CallableFunction): void
   removeEventListener(event: string, callback: CallableFunction): void
 }
@@ -142,6 +160,7 @@ type DesignSystemElementAttributes =
   | PichinchaInputHTMLAttributes
   | PichinchaTypographyHTMLAttributes
   | PichinchaLinkHTMLAttributes
+  | PichinchaCheckBoxHTMLAttributes
 
 declare namespace JSX {
   interface IntrinsicElements {
@@ -149,5 +168,6 @@ declare namespace JSX {
     'pichincha-input': PichinchaInputHTMLAttributes
     'pichincha-typography': PichinchaTypographyHTMLAttributes
     'pichincha-link': PichinchaLinkHTMLAttributes
+    'pichincha-check-box': PichinchaCheckBoxHTMLAttributes
   }
 }

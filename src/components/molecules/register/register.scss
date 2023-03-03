@@ -1,0 +1,19 @@
+.register {
+    &__actionRow {
+        background-color: #ececec;
+        padding: 16px 0;
+        align-items: center;
+        margin-top: 24px;
+    } 
+}
+
+.category-contanier {
+    .hydrated {
+        display: flex;
+        padding: 4px 0;
+    }
+}
+
+.row {
+    padding: 16px;
+}
