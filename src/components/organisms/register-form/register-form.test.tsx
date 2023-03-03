@@ -20,8 +20,8 @@ describe('LoginForm component', () => {
     const emailInput = screen.getByPlaceholderText('Ej. name@example.com');
     expect(emailInput).toBeInTheDocument();
 
-    const passwordInput = screen.getByPlaceholderText('*****')
-    expect(passwordInput).toBeInTheDocument();
+    const passwordInput = screen.getAllByPlaceholderText('*****')
+    expect(passwordInput).toHaveLength(2);
   });
 
   it('should render the link and the button correctly', () => {
