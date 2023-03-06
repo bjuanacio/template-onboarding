@@ -7,7 +7,6 @@ export const Button: FC<PichinchaButtonHTMLAttributes> = ({ onClick, ...rest }) 
   const buttonRef = useRef<HTMLPichinchaButtonElement>()
 
   const handleOnClick = () => {
-    console.log('click')
     onClick?.()
   }
 

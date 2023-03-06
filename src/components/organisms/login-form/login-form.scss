@@ -41,5 +41,16 @@
     a:hover, a:focus {
       color: #1e40af;
     }
+
+    button {
+      width: 120px;
+      height: 40px;
+      border: none;
+      border-radius: 4px;
+      padding: 0px 12px;
+      cursor: pointer;
+      background-color: var(--yellow500);
+      color: var(--blue500);
+    }
   }
 }

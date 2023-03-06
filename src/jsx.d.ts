@@ -115,6 +115,7 @@ interface PichinchaInputHTMLAttributes {
   type?: string
   value?: string
   onChange?(value: string): void
+  onBlur?(value: string): void
 }
 
 interface HTMLPichinchaInputElement extends PichinchaInputHTMLAttributes {

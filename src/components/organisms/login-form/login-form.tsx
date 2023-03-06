@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Button } from "../../atoms/button/button";
+import { useState, FormEvent } from "react";
 import { Input } from "../../atoms/input/input";
 import { Typography } from "../../atoms/typography/typography";
 import { Link } from "react-router-dom";
@@ -12,14 +11,13 @@ const LoginForm = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  const handleClick = () => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (email?.length === 0) setEmailError("Correo es requerido");
     if (password?.length === 0) setPasswordError("Contraseña requerida");
   };
 
   const handleEmailValue = (value: string) => {
-    setEmail(value);
-
     if (!validateEmail(value)) {
       setEmailError("Por favor, ingrese un correo válido");
     } else {
@@ -30,7 +28,7 @@ const LoginForm = () => {
   return (
     <div className="login">
       <div className="login__container">
-        <form aria-label="Login Form">
+        <form aria-label="Login Form" onSubmit={handleSubmit}>
           <div className="login__title">
             <Typography variant="h2" weight="bold" color="black">
               Iniciar sesión
@@ -44,7 +42,8 @@ const LoginForm = () => {
               size="medium"
               state={emailError ? "error" : "normal"}
               value={email}
-              onChange={handleEmailValue}
+              onChange={setEmail}
+              onBlur={handleEmailValue}
               placeholder="Ej. name@example.com"
               fullWidth={true}
               controlEvent={true}
@@ -69,19 +68,16 @@ const LoginForm = () => {
           </div>
           <div className="login__actions">
             <Link to="/register">Regístrate aquí</Link>
-            <Button
-              tabIndexInner={4}
-              size="medium"
-              color="primary"
-              onClick={handleClick}
-            >
-              Iniciar Sesión
-            </Button>
+            <button type="submit">
+              <Typography variant="captionText" weight="bold">
+                Iniciar Sesión
+              </Typography>
+            </button>
           </div>
         </form>
       </div>
     </div>
   );
-};
+}
 
 export default LoginForm;
