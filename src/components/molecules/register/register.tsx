@@ -1,22 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../atoms/button/button";
 import { Input } from "../../atoms/input/input";
 import { Typography } from "../../atoms/typography/typography";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Link } from "../../atoms/link/link";
+import { Link } from "react-router-dom";
+import { Link as LinkCustom } from "../../atoms/link/link";
 import { Card } from "../../atoms/card/card";
 import './register.scss'
 import { CheckBox } from "../../checkbox/checkbox";
+import useValidateFields from "../../../hooks/use-validateFields/use-validateFields";
 
 const RegisterForm = () => {
 
-    const handleClick = () => {
-        alert("Data: " + username + " - " + password);
-    };
-    const [username, setUsername] = useState("");
+
+    const [username1, setUsername] = useState("marco9090");
+    const [mail, setMail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPass, setConfirmPass] = useState("");
+
+    const { handleValidatePassword, handlevalidateEmail, confirmPassErrorMsg, handleValidateEqualPassword, validConfirPass, passErrorMsg, userNameErrorMsg, validPass, validUsername } = useValidateFields();
+
+    const handleClick = () => {
+        console.log()
+        handleValidateEqualPassword(password, confirmPass)
+        alert("Data: " + username1 + " - " + confirmPass);
+    };
+
+    useEffect(() => {
+        handlevalidateEmail(mail)
+    }, [mail]);
+
+    useEffect(() => {
+        handleValidatePassword(password)
+    }, [password]);
+
     return (
         <Card>
             <Container>
@@ -31,7 +50,7 @@ const RegisterForm = () => {
                         label="Nombre de usuario"
                         size="medium"
                         state="normal"
-                        value={username}
+                        value={username1}
                         onChange={setUsername}
                         placeholder="Ej. makoto"
                         fullWidth={true}
@@ -45,13 +64,14 @@ const RegisterForm = () => {
                         type="text"
                         label="Correo electronico"
                         size="medium"
-                        state="normal"
-                        value={username}
-                        onChange={setUsername}
+                        state={validUsername}
+                        value={mail}
+                        onChange={setMail}
                         placeholder="Ej. name@example.com"
                         fullWidth={true}
                         controlEvent={true}
                         tabIndexElement={2}
+                        errorHelper={userNameErrorMsg}
                     ></Input>
                 </Row>
 
@@ -60,7 +80,7 @@ const RegisterForm = () => {
                     <Input
                         label="Contraseña"
                         size="medium"
-                        state="normal"
+                        state={validPass}
                         value={password}
                         onChange={setPassword}
                         placeholder="Password"
@@ -68,19 +88,21 @@ const RegisterForm = () => {
                         fullWidth={true}
                         controlEvent={true}
                         tabIndexElement={3}
+                        errorHelper={passErrorMsg}
                     ></Input>
                 </Row>  <Row>
                     <Input
                         label="Confirmar contraseña"
                         size="medium"
-                        state="normal"
-                        value={password}
-                        onChange={setPassword}
+                        state={validConfirPass}
+                        value={confirmPass}
+                        onChange={setConfirmPass}
                         placeholder="Password"
                         type="password"
                         fullWidth={true}
                         controlEvent={true}
                         tabIndexElement={3}
+                        errorHelper={confirmPassErrorMsg}
                     ></Input>
                 </Row>
 
@@ -99,15 +121,18 @@ const RegisterForm = () => {
                 {/*  */}
 
                 <Row className="register__actionRow">
-                    <Col><Link href="#">Iniciar sesion</Link></Col>
-                    <Col><Button
-                        tabIndexInner={3}
-                        size="medium"
-                        color="primary"
-                        onClick={handleClick}
-                    >
-                        Registrar
-                    </Button>
+                    <Col>
+                        <Link to="/login">Iniciar sesion</Link>
+                    </Col>
+                    <Col>
+                        <Button
+                            tabIndexInner={3}
+                            size="medium"
+                            color="primary"
+                            onClick={handleClick}
+                        >
+                            Registrar
+                        </Button>
                     </Col>
                 </Row>
             </Container>

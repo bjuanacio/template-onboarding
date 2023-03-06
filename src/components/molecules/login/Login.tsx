@@ -5,38 +5,37 @@ import { Typography } from "../../atoms/typography/typography";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Link } from "../../atoms/link/link";
+import { Link } from "react-router-dom";
+import { Link as LinkCustom } from "../../atoms/link/link";
 import { Card } from "../../atoms/card/card";
 import './Login.scss'
-import { validateRegex } from "../../../utils/ds-utils";
+import useLogin from "./use-login/use-login";
+import useValidateFields from "../../../hooks/use-validateFields/use-validateFields";
 
 const Login = () => {
+    const [userName, setuserName] = useState('');
+    const [password, setPassword] = useState('');
+    const { handleLogin } = useLogin();
+    const { handleValidatePassword, handlevalidateEmail, passErrorMsg, userNameErrorMsg, validPass, validUsername } = useValidateFields();
 
-    const handleClick = () => {
-        alert("Data: " + username + " - " + password);
-    };
-    const [username, setUsername] = useState("");
-    const [validUsername, setValidUsername] = useState<"normal" | "error">("normal");
-    const [validPass, setValidPass] = useState<"normal" | "error">("normal");
-    const [userNameErrorMsg, setUserNameErrorMsg] = useState("");
-    const [passErrorMsg, setPassErrorMsg] = useState("");
-    const [password, setPassword] = useState("");
+
 
     useEffect(() => {
-        const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-        const [isValid,errorMsg] = validateRegex(regex, username,"Correo")
-        setValidUsername(isValid);
-        setUserNameErrorMsg(errorMsg)
-    }, [username]);
+        handlevalidateEmail(userName)
+    }, [userName]);
 
     useEffect(() => {
-        const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/g;
-        const [isValid,errorMsg] = validateRegex(regex, password,"Contraseña")
-        setValidPass(isValid);
-        setPassErrorMsg(errorMsg)
+        handleValidatePassword(password)
     }, [password]);
 
-
+    const handleChange = (e: any) => {
+        handlevalidateEmail(e)
+        setuserName(e);
+    }
+    const handleClick = () => {
+        // const result = await handleLogin(userName, password);
+        console.log(userName, password)
+    };
     return (
         <Card>
             <Container className="login">
@@ -45,16 +44,16 @@ const Login = () => {
                 </Row>
 
                 <hr></hr>
-
+                <div>{userName}</div>
                 <Row className="login__row">
                     <Input
                         type="text"
-                        label="Correo electronico"
+                        label="Nombre de usuario"
                         size="medium"
                         state={validUsername}
-                        value={username}
-                        onChange={setUsername}
-                        placeholder="Ej. name@example.com"
+                        value={userName}
+                        onChange={handleChange}
+                        placeholder="Nombre de usuario"
                         fullWidth={true}
                         controlEvent={true}
                         tabIndexElement={1}
@@ -77,15 +76,20 @@ const Login = () => {
                     ></Input>
                 </Row>
                 <Row className="login__actionRow">
-                    <Col><Link href="#">Registrate aqui</Link></Col>
-                    <Col><Button
-                        tabIndexInner={3}
-                        size="medium"
-                        color="primary"
-                        onClick={handleClick}
-                    >
-                        Iniciar Sesion
-                    </Button>
+                    <Col>
+                        <Link to="/register">Registrate aqui</Link>
+                        {/* <LinkCustom href="#">Registrate aqui</LinkCustom> */}
+                    </Col>
+                    <Col>
+                        <Button
+                            tabIndexInner={3}
+                            size="medium"
+                            color="primary"
+                            onClick={handleClick}
+                            idelement="btnRegister"
+                        >
+                            Iniciar Sesion
+                        </Button>
                     </Col>
                 </Row>
             </Container>
