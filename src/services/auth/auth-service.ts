@@ -4,7 +4,6 @@ import axios from "axios";
 const API = process.env.REACT_APP_PUBLIC_API_URL;
 
 export const loginUser = async (email: string, password: string): Promise<UserLogin> => {
-
   const options = {
     headers: {
       accept: '*/*',
@@ -13,7 +12,7 @@ export const loginUser = async (email: string, password: string): Promise<UserLo
   };
 
   const responseLogin = await axios.post<UserLogin>(
-    `${API}/login`,
+    `${API}/users/login`,
     { email, password },
     options
   );

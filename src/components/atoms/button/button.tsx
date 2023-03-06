@@ -18,6 +18,7 @@ export const Button: FC<PichinchaButtonHTMLAttributes> = ({ onClick, ...rest }) 
     return () => {
       buttonNode?.removeEventListener('clickbutton', handleOnClick)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [buttonRef])
 
   return <pichincha-button role="button" ref={buttonRef} {...propsToPass}></pichincha-button>

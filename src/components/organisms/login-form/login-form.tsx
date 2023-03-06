@@ -3,18 +3,32 @@ import { Input } from "../../atoms/input/input";
 import { Typography } from "../../atoms/typography/typography";
 import { Link } from "react-router-dom";
 import "./login-form.scss";
-import { validateEmail } from "../../../utils/ds-utils";
+import { validateEmail, validatePassword } from "../../../utils/ds-utils";
+import { loginUser } from "../../../services/auth/auth-service";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [loginError, setLoginError] = useState("");
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (email?.length === 0) setEmailError("Correo es requerido");
-    if (password?.length === 0) setPasswordError("Contraseña requerida");
+    setEmailError(email?.length === 0 ? "Correo es requerido": emailError);
+    setPasswordError(password?.length === 0 ? "Contraseña requerida" : passwordError);
+
+    if (!emailError && !passwordError) {
+      try {
+        const { access_token } = await loginUser(email, password)
+        if ( access_token ) {
+          sessionStorage.setItem("token", access_token);
+          setLoginError("");
+        }
+      } catch (error) {
+        setLoginError("Error en la autenticación del usuario");
+      }
+    }
   };
 
   const handleEmailValue = (value: string) => {
@@ -22,6 +36,14 @@ const LoginForm = () => {
       setEmailError("Por favor, ingrese un correo válido");
     } else {
       setEmailError("");
+    }
+  };
+
+  const handlePasswordValue = (value: string) => {
+    if (!validatePassword(value)) {
+      setPasswordError("Por favor, ingrese una contraseña válida");
+    } else {
+      setPasswordError("");
     }
   };
 
@@ -58,6 +80,7 @@ const LoginForm = () => {
               state="normal"
               value={password}
               onChange={setPassword}
+              onBlur={handlePasswordValue}
               placeholder="*****"
               type="password"
               fullWidth={true}
@@ -74,6 +97,7 @@ const LoginForm = () => {
               </Typography>
             </button>
           </div>
+          {loginError && <p>{loginError}</p>}
         </form>
       </div>
     </div>

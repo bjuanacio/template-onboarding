@@ -22,6 +22,7 @@ export const Input: FC<PichinchaInputHTMLAttributes> = ({ onChange, onBlur,...re
     currentRef?.removeEventListener('eventValue', handleOnChange)
     currentRef?.removeEventListener('iblur', handleBlur)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputRef])
 
   return <pichincha-input ref={inputRef} {...propsToPass}></pichincha-input>
