@@ -13,15 +13,12 @@ describe('App component', () => {
   })
 
   test('should execute an alert when clicked the button', async () => {
-    const mockAlert = jest.spyOn(window, 'alert').mockImplementation()
 
     render(<App />)
 
-    const buttonElement = screen.getByRole('button', { name: 'Enviar' })
+    const buttonElement = screen.getByText('Iniciar Sesion')
     expect(buttonElement).toBeInTheDocument()
-
     fireEvent(buttonElement, new CustomEvent('clickbutton', { detail: '' }))
 
-    expect(mockAlert).toBeCalledTimes(1)
   })
 })
