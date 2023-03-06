@@ -14,3 +14,13 @@ export default function fromReactToWebComponentProps(cProps: DesignSystemElement
     return acc
   }, {})
 }
+
+export const validateEmail = (email: string) => {
+  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return pattern.test(email);
+}
+
+export const validatePassword = (password: string) => {
+  const pattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+  return pattern.test(password);
+}
