@@ -147,7 +147,7 @@ interface PichinchaInputHTMLAttributes {
   tooltipBody?: string
   type?: string
   value?: string
-  onChange?(value: string): void
+  onChange?(value: string, elementName: string): void
 }
 
 interface HTMLPichinchaInputElement extends PichinchaInputHTMLAttributes {

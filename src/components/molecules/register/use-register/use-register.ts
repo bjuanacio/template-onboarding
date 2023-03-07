@@ -1,9 +1,10 @@
 import { asyncFetch } from "../../../../utils/ds-utils";
+import { IUser } from "../register";
 
-function useLogin() {
+function useRegister() {
 
-    const handleLogin = async (email: string, password: string) => {
-        const url = 'users/login';
+    const handleRegister = async ({ category, email, name, password }: IUser,) => {
+        const url = 'users/create';
         const headers = new Headers({
             Accept: 'application/json',
             'Content-Type': 'application/json',
@@ -12,9 +13,11 @@ function useLogin() {
             mode: 'no-cors',
         })
 
-        const bodyRequest = {
+        const bodyRequest: IUser = {
+            name: name,
             email: email,
             password: password,
+            category: category
         }
 
         const requestOptions = {
@@ -23,10 +26,8 @@ function useLogin() {
             body: JSON.stringify(bodyRequest)
         };
         const { responseJson, statusCode } = await asyncFetch(requestOptions, url);
-        const { access_token } = responseJson;
 
         if (statusCode === 200) {
-            sessionStorage.setItem("access_token", access_token);
             return true
         }
         else {
@@ -35,8 +36,8 @@ function useLogin() {
     }
 
     return {
-        handleLogin
+        handleRegister
     }
 }
 
-export default useLogin;
+export default useRegister;

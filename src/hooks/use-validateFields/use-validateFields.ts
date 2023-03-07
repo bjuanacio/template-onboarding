@@ -21,18 +21,17 @@ function useValidateFields() {
         setPassErrorMsg(errorMsg)
     }
 
-    const handleValidateEqualPassword = (password: string, confirmPass: string) => {
-        console.log(password,confirmPass)
+    const handleValidateEqualPassword = (password: string, confirmPass: string): boolean => {
         if (confirmPass === password) {
             setValidConfirmPass('normal');
+            return true;
         }
         else {
             setValidConfirmPass('error');
             setConfirmPassErrorMsg('Las contraseñas deben coincidir')
+            return false;
         }
     }
-
-
 
     return {
         validPass, validUsername, userNameErrorMsg, passErrorMsg, validConfirPass, confirmPassErrorMsg, handleValidatePassword, handlevalidateEmail, handleValidateEqualPassword
