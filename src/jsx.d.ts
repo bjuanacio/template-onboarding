@@ -42,6 +42,32 @@ type Colors =
   | 'darkGrayishBlue'
   | 'error'
 
+interface HTMLPichinchaTypographyElement extends PichinchaTypographyHTMLAttributes {
+  addEventListener(event: string, callback: CallableFunction): void
+  removeEventListener(event: string, callback: CallableFunction): void
+}
+
+
+interface HTMLPichinchaButtonElement extends PichinchaButtonHTMLAttributes {
+  addEventListener(event: string, callback: CallableFunction): void
+  removeEventListener(event: string, callback: CallableFunction): void
+}
+
+interface HTMLPichinchaCheckBoxElement extends PichinchaCheckBoxHTMLAttributes {
+  addEventListener(event: string, callback: CallableFunction): void
+  removeEventListener(event: string, callback: CallableFunction): void
+}
+
+interface HTMLPichinchaInputElement extends PichinchaInputHTMLAttributes {
+  addEventListener(event: string, callback: CallableFunction): void
+  removeEventListener(event: string, callback: CallableFunction): void
+}
+
+interface HTMLPichinchaAlertMessageElement extends PichinchaAlertMessageHTMLAttributes {
+  addEventListener(event: string, callback: CallableFunction): void
+  removeEventListener(event: string, callback: CallableFunction): void
+}
+
 interface PichinchaTypographyHTMLAttributes {
   align?: 'inherit' | 'left' | 'center' | 'right' | 'justify'
   color?: Colors
@@ -52,9 +78,17 @@ interface PichinchaTypographyHTMLAttributes {
   children?: React.ReactNode;
 }
 
-interface HTMLPichinchaTypographyElement extends PichinchaTypographyHTMLAttributes {
-  addEventListener(event: string, callback: CallableFunction): void
-  removeEventListener(event: string, callback: CallableFunction): void
+interface PichinchaCheckBoxHTMLAttributes {
+  checked?: boolean
+  children?: React.ReactNode
+  disabled?: boolean
+  errorHelper?: string
+  idelement?: string
+  nameElement?: string
+  offLabelClick?: boolean
+  typeCheck?: string
+  value?: string
+  onClickCheck?(): void
 }
 interface PichinchaButtonHTMLAttributes {
   color?: 'primary' | 'secondary' | 'complementary' | 'tertiary' | 'destructive'
@@ -75,10 +109,21 @@ interface PichinchaButtonHTMLAttributes {
   children?: React.ReactNode;
 }
 
-interface HTMLPichinchaButtonElement extends PichinchaButtonHTMLAttributes {
-  addEventListener(event: string, callback: CallableFunction): void
-  removeEventListener(event: string, callback: CallableFunction): void
+interface PichinchaLinkHTMLAttributes {
+  align?: 'inherit' | 'left' | 'center' | 'right' | 'justify'
+  color?: "error" | "info" | "success" | "blue" | "warning" | "white" | "black" | "yellow" | "danger100" | "blue100" | "blue200" | "grey" | "darkGrey" | "danger" | "strongBlue" | "grayishRed" | "moderateCyan" | "yellowGold" | "darkCyan" | "pureOrange" | "darkGrayishBlue" | "darkGrey400" | "blue500"
+  disabled?: boolean
+  display?: string
+  href?: string
+  idelement?: string
+  inline_styles?: object
+  target?: string
+  variant?: VariantText
+  weight?: 'normal' | 'bold'
+  onClick?(): void
+  children?: React.ReactNode;
 }
+
 
 interface PichinchaInputHTMLAttributes {
   inputmode?: string
@@ -114,23 +159,42 @@ interface PichinchaInputHTMLAttributes {
   tooltipBody?: string
   type?: string
   value?: string
-  onChange?(value: string): void
+  onChange?(value: string, elementName: string): void
 }
 
-interface HTMLPichinchaInputElement extends PichinchaInputHTMLAttributes {
-  addEventListener(event: string, callback: CallableFunction): void
-  removeEventListener(event: string, callback: CallableFunction): void
+interface PichinchaAlertMessageHTMLAttributes {
+  acceptButtonText?: string
+  adjustIn?: boolean
+  alertTitle?: string
+  allowClose?: boolean
+  autoClose?: number
+  cancelButtonText?: string
+  closeTime?: number
+  idElement?: string
+  open?: boolean
+  status?: "error" | "info" | "success" | "warning"
+  top?: number
+  variant?: "light" | "normal"
+  closeMessage?(): void
 }
+
+
 
 type DesignSystemElementAttributes =
   | PichinchaButtonHTMLAttributes
   | PichinchaInputHTMLAttributes
   | PichinchaTypographyHTMLAttributes
+  | PichinchaLinkHTMLAttributes
+  | PichinchaCheckBoxHTMLAttributes
+  | PichinchaAlertMessageHTMLAttributes
 
 declare namespace JSX {
   interface IntrinsicElements {
     'pichincha-button': PichinchaButtonHTMLAttributes
     'pichincha-input': PichinchaInputHTMLAttributes
     'pichincha-typography': PichinchaTypographyHTMLAttributes
+    'pichincha-link': PichinchaLinkHTMLAttributes
+    'pichincha-check-box': PichinchaCheckBoxHTMLAttributes
+    'pichincha-alert-message': PichinchaAlertMessageHTMLAttributes
   }
 }

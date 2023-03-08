@@ -1,0 +1,28 @@
+.register {
+    &__actionRow {
+        background-color: #ececec;
+        padding: 16px 0;
+        align-items: center;
+        margin-top: 24px;
+    }
+}
+
+.category-contanier {
+    display: grid;
+    align-items: start;
+    grid-template-columns: auto auto;
+    grid-gap: 2px;
+    height: 250px;
+    overflow: auto;
+    .hydrated {
+        display: flex;
+        padding: 4px 0;
+        text-align: left;
+    }
+}
+
+
+.row {
+    padding: 4px 8px;
+    text-align: left;
+}

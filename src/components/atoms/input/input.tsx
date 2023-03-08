@@ -6,7 +6,11 @@ export const Input: FC<PichinchaInputHTMLAttributes> = ({ onChange, ...rest }) =
   const inputRef = useRef<HTMLPichinchaInputElement>()
 
   const handleOnChange = (event: CustomEvent) => {
-    onChange?.(event.detail)
+
+    const eventElemen = event?.currentTarget as Element;
+    const name = eventElemen.getAttribute('name-element') || '';
+    console.log(name)
+    onChange?.(event.detail, name);
   }
 
   useEffect(() => {

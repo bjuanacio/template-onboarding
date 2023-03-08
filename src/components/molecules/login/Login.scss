@@ -1,0 +1,16 @@
+.login {
+
+    &__row {
+        padding: 8px 4px;
+    }
+
+    &__actionRow {
+        background-color: #ececec;
+        padding: 16px 4px;
+        align-items: center;
+
+        &#{&} {
+            margin-top: 24px;
+        }
+    }
+}
