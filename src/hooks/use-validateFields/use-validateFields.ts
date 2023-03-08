@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { validateEmail, validateEmptyField, validatePassword } from "../../utils/ds-utils";
+import { asyncFetch, validateEmail, validateEmptyField, validatePassword } from "../../utils/ds-utils";
 
 function useValidateFields() {
     const [validEmail, setValidEmail] = useState<"normal" | "error">("normal");
@@ -16,7 +16,6 @@ function useValidateFields() {
         const [isValid, errorMsg] = validateEmail(username)
         setValidEmail(isValid);
         setEmailErrorMsg(errorMsg);
-        // isValid === "error" ? setErrorCount(errorCount++) : setErrorCount(errorCount--);
     }
 
     const handleValidatePassword = (password: string) => {
@@ -31,21 +30,40 @@ function useValidateFields() {
         setConfirmPassErrorMsg(errorMsg);
     }
 
-    const handleValidateUserName = (fieldValue: string, fieldName: string) => {
+    const handleValidateUserName = async (fieldValue: string, fieldName: string) => {
         const [isValid, errorMsg] = validateEmptyField(fieldValue, fieldName);
+
         setValidUsername(isValid);
         setUserNameErrorMsg(errorMsg);
+
+        if (isValid === 'normal') {
+            const [existUserName, existErrorMsg] = await userNameExist(fieldValue);
+            setValidUsername(existUserName);
+            setUserNameErrorMsg(existErrorMsg);
+        }
     }
 
-    // const errorCounter = (isValid: "normal" | "error") => {
-    //     if (isValid === "error") {
-    //         setErrorCount(errorCount++)
-    //     }
-    //     else {
-    //         setErrorCount(errorCount--)
-    //     }
-    //     console.log(isValid, errorCount);
-    // }
+    const userNameExist = async (name: string): Promise<["normal" | "error", string]> => {
+        const url = `users/exist-name/?name=${name}`;
+        const headers = new Headers({
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            mode: 'no-cors',
+        })
+
+        const requestOptions = {
+            method: 'GET',
+            headers: headers,
+        };
+        const { responseJson } = await asyncFetch(requestOptions, url);
+        const { exists } = responseJson;
+
+        const result: ["normal" | "error", string] = exists ? ["error", "El nombre de usuario ya existe"] : ["normal", ""];
+
+        return result;
+    }
 
     const handleValidateEqualPassword = (password: string, confirmPass: string): boolean => {
         if (confirmPass === password) {
@@ -64,7 +82,7 @@ function useValidateFields() {
     }
 
     return {
-         validUsername, validCategories, userNameErrorMsg, validPass, validEmail, EmailErrorMsg, passErrorMsg, validConfirPass, confirmPassErrorMsg, handleVaildCategories, handleValidatePassword, handlevalidateEmail, handleValidateEqualPassword, handleValidateConfPass, handleValidateUserName
+        validUsername, validCategories, userNameErrorMsg, validPass, validEmail, EmailErrorMsg, passErrorMsg, validConfirPass, confirmPassErrorMsg, handleVaildCategories, handleValidatePassword, handlevalidateEmail, handleValidateEqualPassword, handleValidateConfPass, handleValidateUserName
     }
 }
 

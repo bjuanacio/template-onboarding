@@ -13,6 +13,7 @@ import { CheckBox } from "../../checkbox/checkbox";
 import useValidateFields from "../../../hooks/use-validateFields/use-validateFields";
 import categoryList from '../../../mockData/category/category.json';
 import useRegister from "./use-register/use-register";
+import { Alert } from "../../atoms/alert/alert";
 
 
 export interface IUser {
@@ -20,6 +21,12 @@ export interface IUser {
     category: Array<number>
     password: string
     email: string
+}
+
+export interface IAlert {
+    message?: string;
+    status?: "error" | "info" | "success" | "warning";
+    open?: boolean
 }
 
 const RegisterForm = () => {
@@ -31,7 +38,13 @@ const RegisterForm = () => {
         email: ''
     });
     const [confirmPass, setConfirmPass] = useState("");
+    const [alertMsg, setAlertMsg] = useState<IAlert>({
+        message: '',
+        status: 'success',
+        open: false,
+    });
     let [isValidForm, setIsValidForm] = useState(false);
+
     const { userNameErrorMsg, validUsername, handleValidatePassword, handleVaildCategories, validCategories, handlevalidateEmail, handleValidateConfPass, confirmPassErrorMsg, handleValidateEqualPassword, validConfirPass, passErrorMsg, EmailErrorMsg, validPass, validEmail, handleValidateUserName } = useValidateFields();
     const { handleRegister } = useRegister();
 
@@ -39,10 +52,20 @@ const RegisterForm = () => {
         const valid = handleValidateEqualPassword(user.password, confirmPass);
         if (valid && isValidForm) {
             handleRegister(user);
+            setAlertMsg({
+                message: 'Registro completado',
+                open: true,
+                status: "success"
+            })
         }
         else {
-            alert('Falta')
+            setAlertMsg({
+                message: 'Algun campo del formulario necesita validacion',
+                open: true,
+                status: "warning"
+            })
         }
+
     };
 
     const handleClickCheck = (e: any) => {
@@ -91,7 +114,16 @@ const RegisterForm = () => {
 
     }, [validUsername, validCategories, validEmail, validPass, validConfirPass]);
 
+    useEffect(() => {
+        if (alertMsg.open) {
+            setTimeout(() => {
+                setAlertMsg({
+                    open: false,
+                })
+            }, 3000);
 
+        }
+    }, [alertMsg]);
 
     useEffect(() => {
         handleValidateUserName(user.name, 'Este campo es requerido')
@@ -111,6 +143,17 @@ const RegisterForm = () => {
 
     return (
         <Card>
+            <Alert idElement="global-message"
+                open={alertMsg.open}
+                variant="normal"
+                status={alertMsg.status}
+                adjust-in={false}
+                top={0}
+                allow-close={true}
+                alertTitle={alertMsg.message}
+                auto-close={true}
+                closeTime={3000}
+            />
             <Container>
                 <Row>
                     <Typography align="left" variant="hero" weight="bold" sub-category="hero" weight-category="book">Registrarse</Typography>
