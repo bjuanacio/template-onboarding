@@ -45,6 +45,15 @@ export const validatePassword = (password: string) => {
   return validateRegex(regex, password, "Contraseña")
 }
 
+export const validateEmptyField = (fieldValue: string, fieldName: string): ["normal" | "error", string] => {
+  if (fieldValue === '' || fieldValue === null) {
+    return ["error", `${fieldName} es requerido`]
+  }
+  else {
+    return ["normal", ""]
+  }
+}
+
 const validateRegex = (regExp: RegExp, stringVal: string, fieldName: string): ["normal" | "error", string] => {
   if (stringVal === '') {
     return ["error", `${fieldName} es requerido`]

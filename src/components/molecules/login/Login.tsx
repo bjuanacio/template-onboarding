@@ -16,7 +16,7 @@ const Login = () => {
     const [userNameCustom, setuserName] = useState('');
     const [password, setPassword] = useState('');
     const { handleLogin } = useLogin();
-    const { handleValidatePassword, handlevalidateEmail, passErrorMsg, userNameErrorMsg, validPass, validUsername } = useValidateFields();
+    const { handleValidatePassword, handlevalidateEmail, passErrorMsg, EmailErrorMsg, validPass, validEmail } = useValidateFields();
 
 
 
@@ -29,7 +29,7 @@ const Login = () => {
     }, [password]);
 
     const handleClick = async () => {
-        const result = await handleLogin(userNameCustom, password);
+        await handleLogin(userNameCustom, password);
     };
 
     return (
@@ -45,7 +45,7 @@ const Login = () => {
                         type="text"
                         label="Nombre de usuario"
                         size="medium"
-                        state={validUsername}
+                        state={validEmail}
                         value={userNameCustom}
                         onChange={setuserName}
                         idElement="txtUserName"
@@ -53,7 +53,7 @@ const Login = () => {
                         fullWidth={true}
                         controlEvent={true}
                         tabIndexElement={1}
-                        errorHelper={userNameErrorMsg}
+                        errorHelper={EmailErrorMsg}
                     ></Input>
                 </Row>
                 <Row className="login__row">

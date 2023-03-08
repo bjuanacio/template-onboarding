@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link } from "react-router-dom";
-import { Link as LinkCustom } from "../../atoms/link/link";
+// import { Link as LinkCustom } from "../../atoms/link/link";
 import { Card } from "../../atoms/card/card";
 import './register.scss'
 import { CheckBox } from "../../checkbox/checkbox";
@@ -22,7 +22,6 @@ export interface IUser {
     email: string
 }
 
-
 const RegisterForm = () => {
 
     const [user, setUsername] = useState<IUser>({
@@ -32,14 +31,17 @@ const RegisterForm = () => {
         email: ''
     });
     const [confirmPass, setConfirmPass] = useState("");
-
-    const { handleValidatePassword, handlevalidateEmail, confirmPassErrorMsg, handleValidateEqualPassword, validConfirPass, passErrorMsg, userNameErrorMsg, validPass, validUsername } = useValidateFields();
+    let [isValidForm, setIsValidForm] = useState(false);
+    const { userNameErrorMsg, validUsername, handleValidatePassword, handleVaildCategories, validCategories, handlevalidateEmail, handleValidateConfPass, confirmPassErrorMsg, handleValidateEqualPassword, validConfirPass, passErrorMsg, EmailErrorMsg, validPass, validEmail, handleValidateUserName } = useValidateFields();
     const { handleRegister } = useRegister();
 
     const handleClick = () => {
         const valid = handleValidateEqualPassword(user.password, confirmPass);
-        if (valid) {
+        if (valid && isValidForm) {
             handleRegister(user);
+        }
+        else {
+            alert('Falta')
         }
     };
 
@@ -55,11 +57,49 @@ const RegisterForm = () => {
                 categories.splice(index, 1);
             }
         }
+        handleVaildCategories(user.category)
     };
 
     const handleChange = (value: string, name: string) => {
         setUsername(prevState => ({ ...prevState, [name]: value }))
     }
+
+    useEffect(() => {
+        if (validUsername === "error") {
+            setIsValidForm(false);
+            return;
+        }
+        else if (!validCategories) {
+            setIsValidForm(false);
+            return;
+        }
+        else if (validEmail === "error") {
+            setIsValidForm(false);
+            return;
+        }
+        else if (validPass === "error") {
+            setIsValidForm(false);
+            return;
+        }
+        else if (validConfirPass === "error") {
+            setIsValidForm(false);
+            return;
+        }
+        else {
+            setIsValidForm(true);
+        }
+
+    }, [validUsername, validCategories, validEmail, validPass, validConfirPass]);
+
+
+
+    useEffect(() => {
+        handleValidateUserName(user.name, 'Este campo es requerido')
+    }, [user.name]);
+
+    useEffect(() => {
+        handleValidateConfPass(confirmPass, 'Este campo es requerido')
+    }, [confirmPass]);
 
     useEffect(() => {
         handlevalidateEmail(user.email)
@@ -82,13 +122,14 @@ const RegisterForm = () => {
                         type="text"
                         label="Nombre de usuario"
                         size="medium"
-                        state="normal"
+                        state={validUsername}
                         value={user.name}
                         onChange={handleChange}
                         placeholder="Ej. makoto"
                         fullWidth={true}
                         controlEvent={true}
                         tabIndexElement={1}
+                        errorHelper={userNameErrorMsg}
                         nameElement="name"
                     ></Input>
                 </Row>
@@ -98,14 +139,14 @@ const RegisterForm = () => {
                         type="text"
                         label="Correo electronico"
                         size="medium"
-                        state={validUsername}
+                        state={validEmail}
                         value={user.email}
                         onChange={handleChange}
                         placeholder="Ej. name@example.com"
                         fullWidth={true}
                         controlEvent={true}
                         tabIndexElement={2}
-                        errorHelper={userNameErrorMsg}
+                        errorHelper={EmailErrorMsg}
                         nameElement="email"
                     ></Input>
                 </Row>
@@ -139,6 +180,7 @@ const RegisterForm = () => {
                         controlEvent={true}
                         tabIndexElement={3}
                         errorHelper={confirmPassErrorMsg}
+                        nameElement="confPassword"
                     ></Input>
                 </Row>
 
@@ -147,11 +189,14 @@ const RegisterForm = () => {
                 </Row>
 
 
-                <Container className="category-contanier">
-                    {categoryList.map(({ id, description }) => {
-                        return <div onClick={handleClickCheck}><CheckBox nameElement='category' value={id.toString()}>{description}</CheckBox></div>
+                <Container className="category-contanier" fluid>
+                    {categoryList.map(({ id, description }, index) => {
+                        return (
+                            <div onClick={handleClickCheck}><CheckBox nameElement='category' value={id.toString()}>{description}</CheckBox></div>
+                        )
                     })}
                 </Container>
+                {!validCategories ? <Typography color="danger" align="left" variant="legalText">Debe seleccionar al menos 3 categorias</Typography> : ''}
 
                 <Row className="register__actionRow">
                     <Col>
