@@ -27,7 +27,7 @@ function useRegister() {
         };
         const { responseJson, statusCode } = await asyncFetch(requestOptions, url);
 
-        if (statusCode === 200) {
+        if (responseJson === "Usuario creado exitosamente.") {
             return true
         }
         else {

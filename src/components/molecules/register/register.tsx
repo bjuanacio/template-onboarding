@@ -48,15 +48,25 @@ const RegisterForm = () => {
     const { userNameErrorMsg, validUsername, handleValidatePassword, handleVaildCategories, validCategories, handlevalidateEmail, handleValidateConfPass, confirmPassErrorMsg, handleValidateEqualPassword, validConfirPass, passErrorMsg, EmailErrorMsg, validPass, validEmail, handleValidateUserName } = useValidateFields();
     const { handleRegister } = useRegister();
 
-    const handleClick = () => {
+    const handleClick = async () => {
         const valid = handleValidateEqualPassword(user.password, confirmPass);
         if (valid && isValidForm) {
-            handleRegister(user);
-            setAlertMsg({
-                message: 'Registro completado',
-                open: true,
-                status: "success"
-            })
+            const response = await handleRegister(user);
+            if (response) {
+                setAlertMsg({
+                    message: 'Usuario creado exitosamente.',
+                    open: true,
+                    status: "success"
+                })
+            }
+            else {
+                setAlertMsg({
+                    message: "Este usuario ya existe.",
+                    open: true,
+                    status: "warning"
+                })
+            }
+
         }
         else {
             setAlertMsg({
@@ -121,7 +131,6 @@ const RegisterForm = () => {
                     open: false,
                 })
             }, 3000);
-
         }
     }, [alertMsg]);
 
