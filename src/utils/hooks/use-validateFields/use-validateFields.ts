@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { asyncFetch, validateEmail, validateEmptyField, validatePassword } from "../../utils/ds-utils";
+import { asyncFetch, validateEmail, validateEmptyField, validatePassword } from "../../ds-utils";
 
 function useValidateFields() {
     const [validEmail, setValidEmail] = useState<"normal" | "error">("normal");

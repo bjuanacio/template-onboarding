@@ -7,6 +7,8 @@ import {
   Route,
 } from "react-router-dom";
 import RequireAuth from "./components/molecules/auth/auth";
+import BooksPage from "./components/page/books/books";
+import NewBook from "./components/page/newBook/newBook";
 
 function App() {
 
@@ -16,17 +18,12 @@ function App() {
 
         <Routes>
 
-          <Route path="/register" element={<RegisterForm />} />
-          <Route path="/login" element={<Login></Login>} />
-          <Route
-            path="/books"
-            element={
-              <RequireAuth>
-                <div></div>
-              </RequireAuth>
-            }
-          />
+          <Route path="register" element={<RegisterForm />} />
+          <Route path="login" element={<Login></Login>} />
+          <Route path="/books" element={<BooksPage></BooksPage>}>
 
+          </Route>
+          <Route path="/books/new" element={<NewBook></NewBook>} />
         </Routes>
 
       </div>

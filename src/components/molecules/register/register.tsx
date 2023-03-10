@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 import { Link } from "react-router-dom";
 import { Card } from "../../atoms/card/card";
 import './register.scss';
-import { CheckBox } from "../../checkbox/checkbox";
+import { CheckBox } from "../../atoms/checkbox/checkbox";
 import categoryList from '../../../mockData/category/category.json';
 import useRegister from "./use-register/use-register";
 import { Alert } from "../../atoms/alert/alert";

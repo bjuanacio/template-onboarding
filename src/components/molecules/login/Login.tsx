@@ -10,15 +10,13 @@ import { Link } from "react-router-dom";
 import { Card } from "../../atoms/card/card";
 import './Login.scss'
 import useLogin from "./use-login/use-login";
-import useValidateFields from "../../../hooks/use-validateFields/use-validateFields";
+import useValidateFields from "../../../utils/hooks/use-validateFields/use-validateFields";
 
 const Login = () => {
     const [userNameCustom, setuserName] = useState('');
     const [password, setPassword] = useState('');
     const { handleLogin } = useLogin();
     const { handleValidatePassword, handlevalidateEmail, passErrorMsg, EmailErrorMsg, validPass, validEmail } = useValidateFields();
-
-
 
     useEffect(() => {
         handlevalidateEmail(userNameCustom)
@@ -84,7 +82,7 @@ const Login = () => {
                                 tabIndexInner={3}
                                 size="medium"
                                 color="primary"
-                                idelement="btnRegister"
+                                idElement="btnRegister"
                             >
                                 Iniciar Sesion
                             </Button>

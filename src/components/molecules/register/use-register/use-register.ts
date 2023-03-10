@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { asyncFetch } from "../../../../utils/ds-utils";
-import useValidateFields from "../../../../hooks/use-validateFields/use-validateFields";
+import useValidateFields from "../../../../utils/hooks/use-validateFields/use-validateFields";
 import { IUser } from "../../../../utils/interfaces/user";
 import { IAlert } from "../../../../utils/interfaces/alert";
 
