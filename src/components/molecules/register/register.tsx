@@ -11,6 +11,7 @@ import { CheckBox } from "../../atoms/checkbox/checkbox";
 import categoryList from '../../../mockData/category/category.json';
 import useRegister from "./use-register/use-register";
 import { Alert } from "../../atoms/alert/alert";
+import { CategoryCheckBoxList } from "../categoryCheckList/categoryCheckList";
 
 const RegisterForm = () => {
 
@@ -118,14 +119,8 @@ const RegisterForm = () => {
                 <Row>
                     <Typography align="left" variant="hero" weight="bold" sub-category="hero" weight-category="book">Categorias</Typography>
                 </Row>
-                <Container className="category-contanier" fluid>
-                    {categoryList.map(({ id, description }, index) => {
-                        return (
-                            <div onClick={handleCategoryChecked}><CheckBox nameElement='category' value={id.toString()}>{description}</CheckBox></div>
-                        );
-                    })}
-                </Container>
-                {!validCategories ? <Typography color="danger" align="left" variant="legalText">Debe seleccionar al menos 3 categorias</Typography> : ''}
+                <CategoryCheckBoxList handleCategoryChecked={handleCategoryChecked} validCategories={validCategories} categoryList={categoryList}></CategoryCheckBoxList>
+              
                 <Row className="register__actionRow">
                     <Col>
                         <Link to="/login">Iniciar sesion</Link>

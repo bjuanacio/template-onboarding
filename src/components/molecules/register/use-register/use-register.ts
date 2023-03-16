@@ -3,6 +3,7 @@ import { asyncFetch } from "../../../../utils/ds-utils";
 import useValidateFields from "../../../../utils/hooks/use-validateFields/use-validateFields";
 import { IUser } from "../../../../utils/interfaces/user";
 import { IAlert } from "../../../../utils/interfaces/alert";
+import { Category } from "../../../../utils/interfaces/category";
 
 function useRegister() {
     const {

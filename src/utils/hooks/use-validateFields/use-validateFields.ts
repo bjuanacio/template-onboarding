@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { asyncFetch, validateEmail, validateEmptyField, validatePassword } from "../../ds-utils";
+import { Category } from "../../interfaces/category";
 
 function useValidateFields() {
     const [validEmail, setValidEmail] = useState<"normal" | "error">("normal");
@@ -77,7 +78,7 @@ function useValidateFields() {
         }
     }
 
-    const handleVaildCategories = (categories: number[]) => {
+    const handleVaildCategories = (categories: Category[]) => {
         categories.length >= 3 ? setValidCategories(true) : setValidCategories(false);
     }
 

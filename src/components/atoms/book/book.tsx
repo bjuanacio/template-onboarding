@@ -1,21 +1,9 @@
 import { FC } from 'react';
+import { Book } from "../../../utils/interfaces/book";
 import './book.scss';
 
-export interface IBook {
-    id: string;
-    public: true;
-    author: string;
-    resume: string;
-    title: string;
-    subtitle: string;
-    image: string;
-    url: string;
-    category: number[];
-    userRegister: string;
-    isHovered?: boolean;
-}
 
-export const Book: FC<IBook> = (
+export const BookItem: FC<Book> = (
     { id, image }
 ) => {
 

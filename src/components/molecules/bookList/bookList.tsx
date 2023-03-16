@@ -1,9 +1,10 @@
 import { FC } from 'react';
-import { Book, IBook } from '../../atoms/book/book';
+import { Book } from '../../../utils/interfaces/book';
+import { BookItem } from '../../atoms/book/book';
 import './bookList.scss';
 
 interface IBookList {
-    books: IBook[];
+    books: Book[];
     rowMax: number;
 }
 
@@ -16,8 +17,8 @@ export const BookList: FC<IBookList> = (
     return (
         <div className='bookList--container'>
             {
-                books.map((book: IBook) => {
-                    return <Book key={book.id} {...book}></Book>;
+                books.map((book: Book) => {
+                    return <BookItem key={book.id} {...book}></BookItem>;
                 })
             }
 
